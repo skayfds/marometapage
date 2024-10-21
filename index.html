@@ -23,16 +23,16 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        // Luz
+  
         const light = new THREE.DirectionalLight(0xffffff, 1);
         light.position.set(5, 10, 7.5);
         scene.add(light);
 
-        // Crear un stickman más visible
+       
         const createStickman = () => {
             const stickman = new THREE.Group();
 
-            // Cabeza
+
             const headGeometry = new THREE.SphereGeometry(0.5);
             const headMaterial = new THREE.MeshPhongMaterial({ color: 0xffcc00 });
             const head = new THREE.Mesh(headGeometry, headMaterial);
@@ -79,7 +79,7 @@
 
         camera.position.z = 5;
 
-        // Animación
+     
         const animate = () => {
             requestAnimationFrame(animate);
 
