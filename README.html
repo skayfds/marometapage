@@ -27,8 +27,6 @@
         const light = new THREE.DirectionalLight(0xffffff, 1);
         light.position.set(5, 10, 7.5);
         scene.add(light);
-
-        // Crear un stickman más visible
         const createStickman = () => {
             const stickman = new THREE.Group();
 
@@ -79,11 +77,9 @@
 
         camera.position.z = 5;
 
-        // Animación
         const animate = () => {
             requestAnimationFrame(animate);
 
-            // Realiza un movimiento de backflip más realista
             stickman.rotation.x += 0.1; // Rota en el eje X
             stickman.position.y = Math.sin(stickman.rotation.x) * 0.5; // Simula la elevación
 
@@ -92,7 +88,6 @@
 
         animate();
 
-        // Ajustar el tamaño del canvas al cambiar el tamaño de la ventana
         window.addEventListener('resize', () => {
             const width = window.innerWidth;
             const height = window.innerHeight;
