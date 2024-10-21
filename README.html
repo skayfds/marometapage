@@ -23,21 +23,20 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        // Luz
         const light = new THREE.DirectionalLight(0xffffff, 1);
         light.position.set(5, 10, 7.5);
         scene.add(light);
         const createStickman = () => {
             const stickman = new THREE.Group();
 
-            // Cabeza
+    
             const headGeometry = new THREE.SphereGeometry(0.5);
             const headMaterial = new THREE.MeshPhongMaterial({ color: 0xffcc00 });
             const head = new THREE.Mesh(headGeometry, headMaterial);
             head.position.y = 1.5;
             stickman.add(head);
 
-            // Cuerpo
+
             const bodyGeometry = new THREE.CylinderGeometry(0.1, 0.1, 2);
             const bodyMaterial = new THREE.MeshPhongMaterial({ color: 0x0077cc });
             const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
