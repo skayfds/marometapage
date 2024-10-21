@@ -1,2 +1,0 @@
-# marometapage
-una marometa xd
