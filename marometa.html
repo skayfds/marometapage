@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stickman 3D Haciendo Backflip</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Luz
+        const light = new THREE.DirectionalLight(0xffffff, 1);
+        light.position.set(5, 10, 7.5);
+        scene.add(light);
+
+        // Crear un stickman más visible
+        const createStickman = () => {
+            const stickman = new THREE.Group();
+
+            // Cabeza
+            const headGeometry = new THREE.SphereGeometry(0.5);
+            const headMaterial = new THREE.MeshPhongMaterial({ color: 0xffcc00 });
+            const head = new THREE.Mesh(headGeometry, headMaterial);
+            head.position.y = 1.5;
+            stickman.add(head);
+
+            // Cuerpo
+            const bodyGeometry = new THREE.CylinderGeometry(0.1, 0.1, 2);
+            const bodyMaterial = new THREE.MeshPhongMaterial({ color: 0x0077cc });
+            const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+            stickman.add(body);
+
+            // Brazos
+            const armGeometry = new THREE.CylinderGeometry(0.05, 0.05, 1.5);
+            const leftArm = new THREE.Mesh(armGeometry, bodyMaterial);
+            leftArm.rotation.z = Math.PI / 4;
+            leftArm.position.x = -0.75;
+            leftArm.position.y = 0.5;
+            stickman.add(leftArm);
+
+            const rightArm = new THREE.Mesh(armGeometry, bodyMaterial);
+            rightArm.rotation.z = -Math.PI / 4;
+            rightArm.position.x = 0.75;
+            rightArm.position.y = 0.5;
+            stickman.add(rightArm);
+
+            // Piernas
+            const legGeometry = new THREE.CylinderGeometry(0.1, 0.1, 1.5);
+            const leftLeg = new THREE.Mesh(legGeometry, bodyMaterial);
+            leftLeg.position.x = -0.25;
+            leftLeg.position.y = -2.25;
+            stickman.add(leftLeg);
+
+            const rightLeg = new THREE.Mesh(legGeometry, bodyMaterial);
+            rightLeg.position.x = 0.25;
+            rightLeg.position.y = -2.25;
+            stickman.add(rightLeg);
+
+            return stickman;
+        };
+
+        const stickman = createStickman();
+        scene.add(stickman);
+
+        camera.position.z = 5;
+
+        // Animación
+        const animate = () => {
+            requestAnimationFrame(animate);
+
+            // Realiza un movimiento de backflip más realista
+            stickman.rotation.x += 0.1; // Rota en el eje X
+            stickman.position.y = Math.sin(stickman.rotation.x) * 0.5; // Simula la elevación
+
+            renderer.render(scene, camera);
+        };
+
+        animate();
+
+        // Ajustar el tamaño del canvas al cambiar el tamaño de la ventana
+        window.addEventListener('resize', () => {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+    </script>
+</body>
+</html>
